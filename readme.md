@@ -182,8 +182,27 @@ The following worked for me on:
  * CentOS 5.6 (32 and 64 bit)
  * Ubuntu 12.04 (32 and 64 bit)
     * apt-get install autoconf libtool
+    
+### Build Procedure in PowerPC
 
-### Build Procedure
+Install libsnappy1 & libsnappy-dev in Ubuntu , snappy & snappy-devel in RHEL
+
+    git clone https://github.com/ibmsoe/leveldbjni
+    git clone https://github.com/ibmsoe/leveldb
+    export SNAPPY_HOME=/usr/lib/       ( lib64 in rhel )
+    export LEVELDB_HOME=`cd leveldb; pwd`
+    export LEVELDBJNI_HOME=`cd leveldbjni; pwd`
+
+
+    cd ${LEVELDB_HOME}
+    git apply ../leveldbjni/leveldb.patch
+    make libleveldb.a
+
+    cd ${LEVELDBJNI_HOME}
+    mvn clean install -P download -Plinux64,all
+
+
+### Build Procedure 
 
 Then download the snappy, leveldb, and leveldbjni project source code:
 
